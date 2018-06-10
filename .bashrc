@@ -66,8 +66,6 @@ alias :x=' exit'
 alias cd..='cd ..'
 # }}}
 
-
-
 export HISTCONTROL=erasedups
 export HISTIGNORE="history *:cd *:df *:exit:fg:bg:file *:ll:ls:mc:top:clear"
 
@@ -91,13 +89,6 @@ GREEN="\[\e[1;32m\]"
 YELLOW="\[\e[1;33m\]"
 
 export PS1="\n$YELLOW\u@\H::\d::\t\n$GREEN[\w]$NORMAL$ " 
-
-if [ $HOSTNAME == "buildbng1" ]
-then
-    cd /mnt/data0/vselvaraj/
-else
-    cd /net/buildbng1/mnt/data0/vselvaraj
-fi
 
 function calc { echo "${1}"|bc -l; }
 
