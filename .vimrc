@@ -4,9 +4,6 @@
 " Sets how many lines of history VIM has to remember
 set history=700
 
-" pathogen plugin
-execute pathogen#infect()
-
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
@@ -438,8 +435,8 @@ endfunction
 "map ,f :call WhatFunction() <CR>
 
 
-set laststatus=2
-set statusline=%F:%{WhatFunction()}%{fugitive#statusline()}%m%r%h%w\%=[L:\%l\ C:\%c\ A:\%b\ H:\x%B\ P:\%p%%]
+"set laststatus=2
+"set statusline=%F:%{WhatFunction()}%{fugitive#statusline()}%m%r%h%w\%=[L:\%l\ C:\%c\ A:\%b\ H:\x%B\ P:\%p%%]
 
 "mksession ~/mysession.vim example command 
 set ssop-=options    " do not store global and local values in a session
@@ -468,16 +465,6 @@ if has("python")
     py from math import *
 endif
 
-
-" syntax check
-"
-let g:syntastic_cpp_include_dirs = [ './sys/asnlib/include','./sys/aef/include','./sys/rmasysmon/include','./sys/rmasyscontrold/include','./sys/entity/include','./sys/comm/platform_analyzer/Applications/include','./sys/comm/include','./sys/bcc/include','./sys/platform/include','./sys/rmasyscomm/include','./sys/ssr/include','./sys/include','./sys/timing/include','./sys/rmasysrrhdir/include','./sys/rmasysl1dir/include','./sys/rmasysl2dir/include','/mnt/data0/tools/ccs/pdk_C6678_1_0_0_21/packages/','/mnt/data0/tools/ccs/xdctools_3_23_03_53/packages/', '/mnt/data0/tools/ccs/bios_6_33_05_46/packages/', '/mnt/data0/tools/ccs/pdk_C6678_1_0_0_21/packages/ti/csl', '/mnt/data0/tools/ccs/C6000CGT7.4.5/include', './ip2_main/orion/sys/sysb' ]
-
-" the syntastic has been disable beacause of not being to resolve
-" all the include folder
-let g:syntastic_mode_map = { 'mode': 'active',
-                           \ 'active_filetypes': ['foo', 'bar'],
-                           \ 'passive_filetypes': ['cpp'] }
 
 
 
