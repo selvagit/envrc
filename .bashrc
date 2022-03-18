@@ -68,18 +68,17 @@ alias cd..='cd ..'
 
 export HISTCONTROL=erasedups
 export HISTIGNORE="history *:cd *:df *:exit:fg:bg:file *:ll:ls:mc:top:clear"
-
+export HISTTIMEFORMAT="%F %T "
 shopt -s histappend
-
 export PROMPT_COMMAND="history -a; history -n; history -r"
-
+shopt -s checkwinsize
+export HISTSIZE=100000
+export HISTFILESIZE=1000000
+shopt -s cmdhist
+shopt -s syslog_history
 
 export CSCOPE_EDITOR=vim
 export EDITOR=vim
-
-export HISTTIMEFORMAT="%F %T "
-
-shopt -s checkwinsize
 
 #export PS1="\n\[\033[1;36m\]\u@\H\[\033[1;37m\] \[\033[0;36m\]`date`\n\[\033[0m\][\[\033[1;33m\]\w\[\033[0m\]]\] " 
 
@@ -91,8 +90,6 @@ YELLOW="\[\e[1;33m\]"
 export PS1="\n$YELLOW\u@\H::\d::\t\n$GREEN[\w]$NORMAL$ " 
 
 function calc { echo "${1}"|bc -l; }
-
-source ~/git-completion.bash
 
 # use capital letter when entering the value
 # no 'ox' is required before the number 
