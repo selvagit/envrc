@@ -101,3 +101,5 @@ d2h(){
   echo "obase=16; $@"|bc
 }
 
+alias trd='tmux attach -d'
+
