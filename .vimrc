@@ -465,6 +465,14 @@ if has("python")
     py from math import *
 endif
 
+nnoremap <F2> :grep -r -E <C-R><C-W> ./* <CR>
+"nnoremap <F3> :noautocmd vimgrep // **/*<c-f>$Bhhi
+
+set path+=**
+
+autocmd FileType python set noexpandtab
+autocmd FileType make set noexpandtab
+autocmd FileType sh set noexpandtab
 
 
 
