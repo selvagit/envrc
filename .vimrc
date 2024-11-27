@@ -50,6 +50,9 @@ set wildmode=list:longest,full
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
 
+" Ignore archive & gitignore
+set wildignore+=*.zip,*.tar.bz2,*.tar.gz,*.tgz,*.tar,*.xz,*.so,.gitignore
+
 "Always show current position
 set ruler
 
@@ -86,6 +89,7 @@ set magic
 
 " Show matching brackets when text indicator is over them
 set showmatch
+
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
