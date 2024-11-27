@@ -358,94 +358,12 @@ map <C-k> :bnext<CR>
 map <C-n> :cn<CR>
 map <C-m> :cp<CR>
 
-
-" function for getting funciton prototype name 
-function! GetProtoLine()
-  let ret       = ""
-  let line_save = line(".")
-  let col_save  = col(".")
-  let window_line = winline()
-  let top       = line_save - winline() + 1
-  let so_save = &so
-  let &so = 0
-  let istypedef = 0
-  " find closing brace
-  let closing_lnum = search('^}','cW')
-  if closing_lnum > 0
-    if getline(line(".")) =~ '\w\s*;\s*$'
-      let istypedef = 1
-      let closingline = getline(".")
-    endif
-    " go to the opening brace
-    keepjumps normal! %
-    " if the start position is between the two braces
-    if line(".") <= line_save
-      if istypedef
-        let ret = matchstr(closingline, '\w\+\s*;')
-      else
-        " find a line contains function name
-        let lnum = search('^\w','bcnW') " bug cannot handle 'func ( ' pattern
-        if lnum > 0
-          let ret = getline(lnum)
-        endif
-      endif
-      let lines = closing_lnum - line(".")
-      let line_rel = line_save - line(".")
-      let ret = ret . ':' . line_rel . '/' . lines
-    endif
-  endif
-  "exe "keepjumps normal! " . top . "Gz\<CR>"
-  " restore position and screen line
-  call cursor(line_save, col_save)
-  " needed for diff mode (scroll fixing)
-  let line_diff = winline() - window_line
-  if line_diff > 0
-    exe 'normal ' . line_diff . "\<c-e>"
-  elseif line_diff < 0
-    exe 'normal ' . -line_diff . "\<c-y>"
-  endif
-  " sometimes cursor position is wrong after scroll fix, why? Workaround:
-  call cursor(line_save, col_save)
-  let &so = so_save
-  return ret
-endfunction
-
-function! WhatFunction()
-  " allow to quickly disable it (:let b:noWhatFunction=1)
-  if exists("b:noWhatFunction") && b:noWhatFunction
-    return ""
-  endif
-  if &ft != "c" && &ft != "cpp"
-    return ""
-  endif
-  let proto = GetProtoLine()
-  if proto == ""
-    return "?"
-  endif
-  let line_info = matchstr(proto, ':\d\+\/\d\+')
-  if stridx(proto, '(') > 0
-    let ret = matchstr(proto, '\~\?\w\+(\@=')
-  elseif proto =~# '\<struct\>'
-    let ret = matchstr(proto, 'struct\s\+\w\+')
-  elseif proto =~# '\<class\>'
-    let ret = matchstr(proto, 'class\s\+\w\+')
-  else
-    let ret = strpart(proto, 0, 15) . "..."
-  endif
-  let ret .= line_info
-  return ret
-endfunction
-
-"map ,f :call WhatFunction() <CR>
-
-
 "set laststatus=2
-"set statusline=%F:%{WhatFunction()}%{fugitive#statusline()}%m%r%h%w\%=[L:\%l\ C:\%c\ A:\%b\ H:\x%B\ P:\%p%%]
+set statusline=%F:%{fugitive#statusline()}%m%r%h%w\%=[L:\%l\ C:\%c\ A:\%b\ H:\x%B\ P:\%p%%]
 
 "mksession ~/mysession.vim example command 
 set ssop-=options    " do not store global and local values in a session
 set ssop-=folds      " do not store folds
-
 
 " dir diff using a plugin DifDiff.vim
 "Sets default exclude pattern: 
@@ -477,7 +395,3 @@ set path+=**
 autocmd FileType python set noexpandtab
 autocmd FileType make set noexpandtab
 autocmd FileType sh set noexpandtab
-
-
-
-
